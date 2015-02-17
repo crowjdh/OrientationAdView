@@ -82,6 +82,7 @@ public class OrientationAdView extends FrameLayout {
         mLandscapeAd.show();
     }
 
+    @Override
     public void setVisibility(@Visibility int visibility) {
         if (mPortraitAd != null) {
             mPortraitAd.setVisibility(visibility);
@@ -90,12 +91,6 @@ public class OrientationAdView extends FrameLayout {
             mLandscapeAd.setVisibility(visibility);
         }
     }
-
-//    public void applyBottomMarginOnPortrait(int bottomMargin) {
-//        RelativeLayout.LayoutParams adViewLp =
-//                (RelativeLayout.LayoutParams)mPortraitAd.getLayoutParams();
-//        adViewLp.bottomMargin = bottomMargin;
-//    }
 
     public void pause() {
         pausePortraitAd();
