@@ -28,6 +28,7 @@ public class OrientationAdView extends FrameLayout {
     private OneShotAdView mLandscapeAd;
     private String mPortraitAdUnit;
     private String mLandscapeAdUnit;
+    private boolean mIsShowing;
 
     public OrientationAdView(Context context, String portraitAdUnit, String landscapeAdUnit) {
         super(context);
@@ -38,7 +39,7 @@ public class OrientationAdView extends FrameLayout {
 
     private void init() {
         initAdViews();
-        showAdBasedOnOrientation();
+        show();
     }
 
     private void initAdViews() {
@@ -61,7 +62,9 @@ public class OrientationAdView extends FrameLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        showAdBasedOnOrientation();
+        if (isShowing()) {
+            show();
+        }
     }
 
     private void showAdBasedOnOrientation() {
@@ -73,24 +76,43 @@ public class OrientationAdView extends FrameLayout {
     }
 
     private void showPortraitAdView() {
-        mPortraitAd.show();
+        if (isShowing()) {
+            mPortraitAd.show();
+        }
         mLandscapeAd.hide();
     }
 
     private void showLandscapeAdView() {
         mPortraitAd.hide();
-        mLandscapeAd.show();
+        if (isShowing()) {
+            mLandscapeAd.show();
+        }
     }
 
-    @Override
-    public void setVisibility(@Visibility int visibility) {
-        if (mPortraitAd != null) {
-            mPortraitAd.setVisibility(visibility);
-        }
-        if (mLandscapeAd != null) {
-            mLandscapeAd.setVisibility(visibility);
-        }
+    public void show() {
+        mIsShowing = true;
+        showAdBasedOnOrientation();
     }
+
+    public void hide() {
+        mIsShowing = false;
+        mPortraitAd.hide();
+        mLandscapeAd.hide();
+    }
+
+    public boolean isShowing() {
+        return mIsShowing;
+    }
+
+//    @Override
+//    public void setVisibility(@Visibility int visibility) {
+//        if (mPortraitAd != null) {
+//            mPortraitAd.setVisibility(visibility);
+//        }
+//        if (mLandscapeAd != null) {
+//            mLandscapeAd.setVisibility(visibility);
+//        }
+//    }
 
     public void pause() {
         pausePortraitAd();
@@ -126,7 +148,7 @@ public class OrientationAdView extends FrameLayout {
         }
     }
 
-    private boolean isPortrait() {
+    protected boolean isPortrait() {
         return getOrientation() == Configuration.ORIENTATION_PORTRAIT;
     }
 
