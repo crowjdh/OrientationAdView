@@ -48,14 +48,14 @@ public class OneShotAdView extends FrameLayout {
     }
 
     public void show() {
-        mInnerAdView.setVisibility(View.VISIBLE);
+        setVisibility(View.VISIBLE);
         if (!mHasLoaded) {
             loadAd(mInnerAdView);
         }
     }
 
     public void hide() {
-        mInnerAdView.setVisibility(View.GONE);
+        setVisibility(View.GONE);
     }
 
     private static AdView makeLoadedAdView(Context context, String adUnitId) {
