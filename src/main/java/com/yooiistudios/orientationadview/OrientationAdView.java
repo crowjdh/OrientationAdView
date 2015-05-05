@@ -39,7 +39,7 @@ public class OrientationAdView extends FrameLayout {
 
     private void init() {
         initAdViews();
-        show();
+//        show();
     }
 
     private void initAdViews() {
